@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/juliofilizzola/node_heart/issues"
   },
-  "homepage": "https://github.com/juliofilizzola/node_heart#readme"
+  "homepage": "https://github.com/juliofilizzola/node_heart#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
