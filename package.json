@@ -4,7 +4,7 @@
   "description": "Projeto feito durtante a NLW",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev src/app.ts",
+    "dev": "ts-node-dev --exit-child src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

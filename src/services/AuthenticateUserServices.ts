@@ -1,5 +1,6 @@
 import axios from "axios";
 import prismaClient from "../prisma";
+import { sign } from "jsonwebtoken";
 
 interface IAccessTokenResponse {
   access_token: string;
@@ -53,7 +54,22 @@ class AuthenticateUserServices {
       });
     }
 
-    return response.data;
+    const token = sign(
+      {
+        user: {
+          name: user.name,
+          avatar_ur: user.avatar_url,
+          id: user.id
+        }
+      },
+      "67117df1e2ca460c52084ca261aa85e8",
+      {
+        subject:user.id,
+        expiresIn: "id"
+      }
+    );
+
+    return { user, token };
   };
 };
 
