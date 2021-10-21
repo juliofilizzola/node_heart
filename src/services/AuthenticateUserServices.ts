@@ -1,5 +1,6 @@
 import axios from "axios";
-import prismaClient from "../prisma";
+import "dotenv/config";
+import prismaClient from "../prisma/index";
 import { sign } from "jsonwebtoken";
 
 interface IAccessTokenResponse {
@@ -28,13 +29,12 @@ class AuthenticateUserServices {
         "Accept":  "application/json"
       }
     });
-
     const response = await axios.get<IUserResponse>('https://api.github.com/user', {
       headers: {
         authorization: `Bearer ${accessTokenResponse.access_token}`
       }
     });
-
+    
     const { login, id, avatar_url, name } = response.data;
 
     let user = await prismaClient.user.findFirst({
@@ -42,7 +42,7 @@ class AuthenticateUserServices {
         github_id: id
       }
     });
-
+    
     if (!user) {
       user = await prismaClient.user.create({
         data: {
@@ -65,7 +65,7 @@ class AuthenticateUserServices {
       "67117df1e2ca460c52084ca261aa85e8",
       {
         subject:user.id,
-        expiresIn: "id"
+        expiresIn: "1d"
       }
     );
 
