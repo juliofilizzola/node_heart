@@ -8,11 +8,19 @@ import { router } from "./router/router";
 const app = express();
 
 const serverHttp = http.createServer(app);
-const io = new Server(serverHttp);
+const io = new Server(serverHttp, {
+  cors: {
+    origin: "*"
+  }
+});
+
+io.on("connection", socket => {
+  console.log(`Usuário conectado no Socket ${socket.id}`);
+});
+
+
 
 const id = process.env.GITHUB_CLIENT_ID;
-
-const port = 4000;
 
 app.use(express.json());
 
@@ -28,4 +36,4 @@ app.get('/signin/callback', (req, res) => {
   return res.json(code);
 });
 
-app.listen(port, () => console.log(`listening on port 🚀 ${port}`));
+export { serverHttp, io };
