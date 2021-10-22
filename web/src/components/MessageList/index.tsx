@@ -3,8 +3,21 @@ import logoImg from '../../assets/logo.svg';
 
 const MessageList = () => {
   return (
-    <div className={styles.MessageList}>
+    <div className={styles.messageListWrapper}>
       <img src={logoImg} alt="logo heart"/>
+
+      <ul className={styles.messageList}>
+        <li className={styles.message}>
+          <p className={styles.messageContent}>Não vejo a hora de começar esse evento</p>
+          <div className={styles.messageUser}>
+            <div className={styles.userImage}>
+              <img src="https://github.com/juliofilizzola.png" alt="Foto do usuario
+" />
+            </div>
+            <span>Diego Fernandes</span>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };
