@@ -1,9 +1,14 @@
 import style from "./App.module.scss";
+import LoginBox from "./components/LoginBox";
+import MessageList from "./components/MessageList";
+import SendMessageForm from "./components/SendMessageForm";
 
 function App() {
   return (
     <main className={style.contentWrapper}>
-      <h1>Hello World!</h1>
+      <LoginBox/>
+      <MessageList/>
+      <SendMessageForm/>
     </main>
   );
 };
