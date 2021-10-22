@@ -1,7 +1,16 @@
+import React from 'react';
+import api from '../../services/api';
 import styles from './styles.module.scss';
 import logoImg from '../../assets/logo.svg';
 
+
 const MessageList = () => {
+  React.useEffect(() => {
+    api.get('message').then((response) => {
+      console.log(response.data);
+    });
+  }, []);
+
   return (
     <div className={styles.messageListWrapper}>
       <img src={logoImg} alt="logo heart"/>
