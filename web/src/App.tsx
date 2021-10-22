@@ -6,8 +6,8 @@ import SendMessageForm from "./components/SendMessageForm";
 function App() {
   return (
     <main className={style.contentWrapper}>
-      <LoginBox/>
       <MessageList/>
+      <LoginBox/>
       <SendMessageForm/>
     </main>
   );
