@@ -1,6 +1,11 @@
+import styles from './styles.module.scss';
+import logoImg from '../../assets/logo.svg';
+
 const MessageList = () => {
   return (
-    <h1>Message List</h1>
+    <div className={styles.MessageList}>
+      <img src={logoImg} alt="logo heart"/>
+    </div>
   );
 };
 
