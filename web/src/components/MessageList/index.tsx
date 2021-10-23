@@ -3,11 +3,21 @@ import api from '../../services/api';
 import styles from './styles.module.scss';
 import logoImg from '../../assets/logo.svg';
 
+type MessageType = {
+  id: string;
+  text: string;
+  user: {
+    name: string;
+    avatar_url:  string;
+  }
+};
 
 const MessageList = () => {
+  const [ message, setMessage ] = React.useState<MessageType[]>([]);
+
   React.useEffect(() => {
-    api.get('/messages/last3').then((response) => {
-      console.log(response.data);
+    api.get<MessageType[]>('/messages/last3').then((response) => {
+      setMessage(response.data);
     });
   }, []);
 
@@ -16,16 +26,18 @@ const MessageList = () => {
       <img src={logoImg} alt="logo heart"/>
 
       <ul className={styles.messageList}>
-        <li className={styles.message}>
-          <p className={styles.messageContent}>Não vejo a hora de começar esse evento</p>
+        { message.map((data) => (
+          <li className={styles.message}>
+          <p className={styles.messageContent}>{data.text}</p>
           <div className={styles.messageUser}>
             <div className={styles.userImage}>
-              <img src="https://github.com/juliofilizzola.png" alt="Foto do usuario
+              <img src={data.user.avatar_url} alt="Foto do usuario
 " />
             </div>
-            <span>Diego Fernandes</span>
+            <span>{data.user.name}</span>
           </div>
         </li>
+        ))}
       </ul>
     </div>
   );
