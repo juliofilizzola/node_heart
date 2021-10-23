@@ -27,7 +27,7 @@ const MessageList = () => {
 
       <ul className={styles.messageList}>
         { message.map((data) => (
-          <li className={styles.message}>
+          <li key={ data.id } className={styles.message}>
           <p className={styles.messageContent}>{data.text}</p>
           <div className={styles.messageUser}>
             <div className={styles.userImage}>
