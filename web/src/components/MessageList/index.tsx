@@ -6,8 +6,8 @@ import logoImg from '../../assets/logo.svg';
 
 const MessageList = () => {
   React.useEffect(() => {
-    api.get('message').then((response) => {
-      console.log(response.data);
+    api.get('/messages/last3').then((response) => {
+      console.log(response);
     });
   }, []);
 
