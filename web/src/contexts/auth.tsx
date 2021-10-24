@@ -25,7 +25,7 @@ type AuthorResponseType ={
   }
 };
 
-export const AuthContext = React.createContext({} as AuthContextType);
+ const AuthContext = React.createContext({} as AuthContextType);
 
 type AuthProviderType = {
   children: React.ReactNode;
@@ -51,6 +51,19 @@ const AuthProvider = (props: AuthProviderType) => {
   };
 
   React.useEffect(() => {
+    const token = localStorage.getItem('@dowhile:token');
+
+    if (token) {
+      api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+      api.get<userType>('profile').then((response) => {
+        setUser(response.data);
+      });
+    }
+    
+  }, []);
+
+  React.useEffect(() => {
     const url = window.location.href;
     const hasGithubCode = url.includes('?code=');
     
@@ -60,7 +73,8 @@ const AuthProvider = (props: AuthProviderType) => {
       window.history.pushState({}, '', urlWithoutCode);
       sign(githubCode);
     };
-  }, [])
+  }, []);
+
   return (
     <AuthContext.Provider value={{ signInUrl, user }}>
       {props.children}
@@ -68,4 +82,4 @@ const AuthProvider = (props: AuthProviderType) => {
   );
 };
 
-export { AuthProvider };
+export { AuthProvider, AuthContext };
