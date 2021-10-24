@@ -9,7 +9,7 @@ import { AuthContext } from './contexts/auth';
 function App() {
   const { user } = React.useContext(AuthContext);
   return (
-    <main className={style.contentWrapper}>
+    <main className={`${style.contentWrapper} ${ !!user ? style.contentSigned : ''}`}>
       <MessageList/>
       { !!user ? <SendMessageForm/> : <LoginBox/> }
     </main>
