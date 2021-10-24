@@ -54,6 +54,9 @@ const AuthProvider = (props: AuthProviderType) => {
     const { token, user } = AuthorResponse.data;
 
     localStorage.setItem('@dowhile:token', token);
+
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
     setUser(user);
   };
 

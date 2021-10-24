@@ -2,11 +2,19 @@ import React from 'react';
 import { VscGithubInverted, VscSignOut } from 'react-icons/vsc';
 import styles from './styles.module.scss';
 import { AuthContext } from '../../contexts/auth';
-
+import api from '../../services/api';
 
 const SendMessageForm = () => {
   const { user, signOut } = React.useContext(AuthContext);
   const [message, setMessage] = React.useState('');
+
+  const handleSendMessage = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if(!message.trim()) return;
+
+    await api.post('messages', { message });
+    setMessage('');
+  };
 
   return (
     <div className={styles.SendMessageFormWrapper}>
@@ -23,7 +31,7 @@ const SendMessageForm = () => {
           <VscGithubInverted size='16' />
           {user?.login}
         </span>
-        <form className={styles.SendMessageForm}>
+        <form onSubmit={ handleSendMessage } className={styles.sendMessageForm}>
           <label htmlFor="message">Menssagem</label>
           <textarea
             name="message"
