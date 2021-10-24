@@ -14,23 +14,23 @@ const SendMessageForm = () => {
       </button>
 
       <header className={styles.userInformation}>
-        <div>
+        <div className={styles.userImage}>
           <img src={user?.avatar_url} alt={user?.name}/>
-          <strong className={styles.userName}>{user?.name}</strong>
-          <span className={styles.userGithub}>
-            <VscGithubInverted size='16' />
-            {user?.login}
-          </span>
-          <form className={styles.SendMessageForm}>
-            <label htmlFor="message">Menssagem</label>
-            <textarea
-              name="message"
-              id="message"
-              placeholder="Qual sua expectiativa para o evento?"
-            />
-            <button type="submit">Enviar</button>
-          </form>
         </div>
+        <strong className={styles.userName}>{user?.name}</strong>
+        <span className={styles.userGithub}>
+          <VscGithubInverted size='16' />
+          {user?.login}
+        </span>
+        <form className={styles.SendMessageForm}>
+          <label htmlFor="message">Menssagem</label>
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Qual sua expectiativa para o evento?"
+          />
+          <button type="submit">Enviar</button>
+        </form>
       </header>
     </div>
   );
