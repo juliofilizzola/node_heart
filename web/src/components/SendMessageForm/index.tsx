@@ -5,11 +5,12 @@ import { AuthContext } from '../../contexts/auth';
 
 
 const SendMessageForm = () => {
-  const { user } = React.useContext(AuthContext);
+  const { user, signOut } = React.useContext(AuthContext);
+  const [message, setMessage] = React.useState('');
 
   return (
     <div className={styles.SendMessageFormWrapper}>
-      <button className={styles.signOutButton}>
+      <button onClick={ signOut } className={styles.signOutButton}>
         <VscSignOut size="32"/>
       </button>
 
@@ -27,7 +28,9 @@ const SendMessageForm = () => {
           <textarea
             name="message"
             id="message"
+            onChange={ ({ target })=> setMessage(target.value) }
             placeholder="Qual sua expectiativa para o evento?"
+            value={ message }
           />
           <button type="submit">Enviar</button>
         </form>
