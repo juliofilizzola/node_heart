@@ -13,6 +13,7 @@ type userType = {
 type AuthContextType = {
   user: userType | null;
   signInUrl: string;
+  signOut: () => void;
 };
 
 type AuthorResponseType ={
@@ -25,11 +26,12 @@ type AuthorResponseType ={
   }
 };
 
- const AuthContext = React.createContext({} as AuthContextType);
 
 type AuthProviderType = {
   children: React.ReactNode;
 };
+
+const AuthContext = React.createContext({} as AuthContextType);
 
 const AuthProvider = (props: AuthProviderType) => {
 
@@ -38,6 +40,11 @@ const AuthProvider = (props: AuthProviderType) => {
   const clientId = '8f7e3c55b2b1dce0ece0';
   const signInUrl= `https://github.com/login/oauth/authorize?scope=user&client_id=8f7e3c55b2b1dce0ece0`;
 
+
+  const signOut = () => {
+    setUser(null);
+    localStorage.removeItem('@dowhile:token');
+  };
 
   const sign = async (githubCode: string) => {
     const AuthorResponse = await api.post<AuthorResponseType>('authenticate', {
@@ -60,7 +67,7 @@ const AuthProvider = (props: AuthProviderType) => {
         setUser(response.data);
       });
     }
-    
+
   }, []);
 
   React.useEffect(() => {
@@ -76,7 +83,7 @@ const AuthProvider = (props: AuthProviderType) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signInUrl, user }}>
+    <AuthContext.Provider value={{ signInUrl, user, signOut }}>
       {props.children}
     </AuthContext.Provider>
   );
